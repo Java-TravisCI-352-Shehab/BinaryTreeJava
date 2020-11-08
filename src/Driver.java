@@ -18,7 +18,7 @@ public class Driver {
     {
         Tree t = new Tree();
         // create a jframe
-        JFrame frame = new JFrame("JOptionPane showMessageDialog example");
+        JFrame frame = new JFrame("JOptionPane show MessageDialog");
         int ch, num;
 
         do
