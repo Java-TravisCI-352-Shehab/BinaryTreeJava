@@ -9,6 +9,8 @@ public class Tree
 {
     private Node root;
 
+    final String SPACES = "     ";
+
     public Tree() {
         this.root = null;
     }
@@ -186,7 +188,7 @@ public class Tree
 
     void print()
     {
-        String input= JOptionPane.showInputDialog("MAIN OF PRINT\n\n1) Pre Order\n2) Post Order\n3) In Order\nmain\nEnter your Choise : ");
+        String input= JOptionPane.showInputDialog("MAIN OF PRINT\n\n1) Pre Order\n2) Post Order\n3) In Order\n4) Level-order\nmain\nEnter your Choose : ");
         int x = Integer.parseInt(input);
 
         if (x == 1) {
@@ -198,9 +200,14 @@ public class Tree
             System.out.println("Post-order:");
             post(root);
         }
-        else {
+        else if(x == 3){
             System.out.println("In-order:");
             in(root);
+        }
+        else if(x == 4)
+        {
+            System.out.println("Level-order:");
+            printLevelOrder();
         }
         System.out.println();
     }
@@ -209,7 +216,7 @@ public class Tree
     {
         if (tree != null)
         {
-            System.out.print(tree.Data+"     ");
+            System.out.print(tree.Data+SPACES);
             pre(tree.left);
             pre(tree.right);
         }
@@ -221,7 +228,7 @@ public class Tree
         {
             post(tree.left);
             post(tree.right);
-            System.out.print(tree.Data+"     ");
+            System.out.print(tree.Data+SPACES);
         }
     }
 
@@ -230,8 +237,50 @@ public class Tree
         if (tree != null)
         {
             in(tree.left);
-            System.out.print(tree.Data+"     ");
+            System.out.print(tree.Data+SPACES);
             in(tree.right);
+        }
+    }
+
+    void printLevelOrder()
+    {
+        int h = height(root);
+        int i;
+        for (i=1; i<=h; i++)
+            printGivenLevel(root, i);
+    }
+
+    /* Compute the "height" of a tree -- the number of
+    nodes along the longest path from the root node
+    down to the farthest leaf node.*/
+    int height(Node root)
+    {
+        if (root == null)
+            return 0;
+        else
+        {
+            /* compute  height of each subtree */
+            int lheight = height(root.left);
+            int rheight = height(root.right);
+
+            /* use the larger one */
+            if (lheight > rheight)
+                return(lheight+1);
+            else return(rheight+1);
+        }
+    }
+
+    /* Print nodes at the given level */
+    void printGivenLevel (Node root ,int level)
+    {
+        if (root == null)
+            return;
+        if (level == 1)
+            System.out.print(root.Data +SPACES);
+        else if (level > 1)
+        {
+            printGivenLevel(root.left, level-1);
+            printGivenLevel(root.right, level-1);
         }
     }
 }
